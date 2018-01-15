@@ -1,0 +1,62 @@
+?numbers
+example(x)
+vignette()列出安装在计算机上所有包的简介
+
+?points ==> pch
+?par ==> 图形参数的列表
+
+#去框
+par(bty='n')
+
+demo(colors)
+colors()
+
+
+par(col.axis="white",col.lab="white", mar=c(0.1,0.1,0.4,0.1),
+    xaxt="n",yaxt="n")
+n = c(0:656) # a number for each color
+n2 = (n %%73) # each color has a number (from 1 to 73) in its column
+cc = t(colors()) # color names
+k = (2:9) # a number for each column
+x=rep(c(1),times=73)
+for(i in k) {
+  r = rep(c(i),times=73)
+  x = (c(x,r))
+}
+# print, at (x,n2), color rectangle
+plot(x,n2,col=cc,pch=15,
+     xlim=c(0,10),
+     ylim=c(0,73),
+     bty="n",
+     main="Named colors available in R",cex.main=.65)
+x1 = x+ 0.5
+text(x1,n2,cc,cex=.4) #print (at x1,n2), the color name vector
+
+
+http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
+
+
+##stripchart
+
+stripchart(Volume, 
+           method = 'jitter', jitter= .3,
+           pch=20, 
+           xlab= "volume in cubic feet",
+          col = "dodgerblue4",
+          ylim=c(0,8),
+          xlim=c(10,80))
+#坐标轴控制     
+axis(1, col='dodgerblue4', at = c(10,20,30,40,50,60,70,80))
+
+#给图空白区域添加文本
+mtext("Data source", side = 1, line = 4,adj = 1, col= "dodgerblue4",cex = .7)
+
+##dotchart
+
+dotchart(data2$Murder, labels = row.names(data2), cex = .5, main="muder arrests by state, 1973",
+                     xlab = "muder arrests per 100,000 population",
+                     pch = 19,
+                     col = c("darkblue", "dodgerblue"),
+                     lcolor = "gray90",
+                    cex.main = 2, cex.lab = 1.5)
+
