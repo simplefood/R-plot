@@ -8,6 +8,9 @@ vignette()列出安装在计算机上所有包的简介
 #去框
 par(bty='n')
 
+#一页内显示多个图形
+par(mfrow = c(i,j))
+
 demo(colors)
 colors()
 
@@ -48,6 +51,9 @@ stripchart(Volume,
 #坐标轴控制     
 axis(1, col='dodgerblue4', at = c(10,20,30,40,50,60,70,80))
 
+#参考线
+abline(h=13, lty="dotted")
+
 #给图空白区域添加文本
 mtext("Data source", side = 1, line = 4,adj = 1, col= "dodgerblue4",cex = .7)
 
@@ -59,4 +65,94 @@ dotchart(data2$Murder, labels = row.names(data2), cex = .5, main="muder arrests 
                      col = c("darkblue", "dodgerblue"),
                      lcolor = "gray90",
                     cex.main = 2, cex.lab = 1.5)
+                    
+                    
+##boxplot
+
+boxplot(MathAch ~ Minority*Sex,
+        xlab = 'boxplot(MathAch ~ Minority * Sex',
+        varwidth = TRUE, col = c("red","blue"),
+        main = "d. Same as c. plus color",
+        cex = .4, sub = 'varwidth = TRUE,col = c("red","blue"))')
+        
+        
+
+attach(Nimrod)
+
+
+par(bg = "white", fg = "white",
+    col.axis = "gray47", mar = c(7,8,5,4),
+    cex = .65, las = 1)
+
+# boxplot determines formula (time ~ level * medium),
+# makes plot horizontal,
+# sets color for box border, box colors (col);
+# creates titles (main, xlab), creates names
+# for the combinations of level*medium (names), names size (cex.names)
+# one of the names is "" because there is no category “amateur organ.”
+
+boxplot(time ~ level * medium, horizontal = TRUE,
+        border = "cadetblue",
+        main="Performance Times of Elgar's Nimrod",
+        col = c("deepskyblue","peachpuff4"),
+        xlab = "Time in seconds",
+        names = c("brass band","brass band","concert
+                  band", "concert band","", "organ ", "orchestra","orchestra"),
+        cex.names = .4)
+
+# The abline() puts vert. line on graph at time = 186 sec. to show the
+# performance conducted by Elgar. Line type (lty) dotted & color (col) black.
+abline(v = 186, lty = "dotted", col = "black")
+
+# legend() chooses legend text & color & location on the graph
+# legend shows that pros are peachpuff4 & amateurs are deepskyblue.
+
+legend("right", title = "Level", title.col = "black",
+       c("Professional","Amateur"),
+       text.col = c("peachpuff4","deepskyblue"),
+       text.font = 2, cex = 1.2)
+# mtext puts text at a place specified by the user
+
+mtext(" Elgar himself - - >", side = 3,
+      line = -2, adj = 0,
+      cex = .7, col = "black")
+
+detach(Nimrod)
+
+###直方图
+hist(sbp, main = "c. Suggest number of breakpoints", breaks = 30)
+hist(sbp, main = "d. Set first, last and increment", breaks = seq(110,190,15))
+hist(sbp$sbp, main = "sbp dataset", las = 1, label = T,col = "maroon", xlab = "Systolic blood pressure")
+
+library(plotrix)
+library(multcomp)
+histStack(sbp$sbp, z = sbp$gender,
+          col=c("navy","skyblue"),
+          main = "Systolic blood pressure by gender",
+          xlab = "Systolic blood pressure", legend.pos = "topright")
+
+
+library(RcmdrMisc)
+library(multcomp)
+Hist(sbp$sbp, groups = sbp$gender,
+     main = "Systolic blood pressure by gender",
+     col = "navy ", xlab = "Systolic blood pressure")
+     
+     
+library(lattice)
+library(car)
+histogram(~ Salaries$salary | Salaries$rank * Salaries$sex,
+          type = "count", main = "Faculty Salaries by Rank & Gender")     
+       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
