@@ -57,6 +57,9 @@ abline(h=13, lty="dotted")
 #给图空白区域添加文本
 mtext("Data source", side = 1, line = 4,adj = 1, col= "dodgerblue4",cex = .7)
 
+##曲线
+lines(）
+
 ##dotchart
 
 dotchart(data2$Murder, labels = row.names(data2), cex = .5, main="muder arrests by state, 1973",
@@ -146,13 +149,83 @@ histogram(~ Salaries$salary | Salaries$rank * Salaries$sex,
        
         
         
+##核密度图
+eq3 = density(sbp$sbp, bw = 10)
+hist (sbp$sbp,
+      main = "d. Histogram + Kernel Density, bw = 10",
+      col = "maroon", las = 1,
+      cex.axis = .8, freq = F) #freq=F: prob. densities
+lines(eq3, lwd = 2) # Plot density curve on existing histogram
+        
+polygon(density(sam), col = "coral4")
+plot(ecdf(sam),
+     main = "b. Cumulative distribution function of sample in Figure 8-3-a", col = "turquoise")
+Ecdf(sbp$sbp,
+     main="d. Ecdf(sbp$sbp) - Hmisc pack. + grid()",
+     xlab = "sys blood pressure", col = "deepskyblue3")
+grid(col = "gray70") # adds gray grid to current plot
+
+library(ggplot2)
+ggplot(sbp, aes(x=sbp)) + stat_ecdf()
         
         
+###条形图
+barplot(rankcount, ylab = "Count", col = "skyblue",
+        main = "Faculty by Rank", sub = "a. Number in each rank")
+barplot(aver$salary, ylab = "Average Salary",
+names.arg = aver$rank, col = "skyblue",
+main = "Faculty Salaries", sub = "b. Average salary by rank")
+
+barplot(rank2, ylab = "Count", names.arg = c("Female","Male"),
+main = "Faculty by Rank and Sex",
+col = c("skyblue","skyblue4","burlywood"),
+sub = "d. Grouped plot", beside = T)
+legend("topleft", c("Prof","Assoc","Asst"),
+text.col = c("burlywood","skyblue4","skyblue"))  
+
+
+barplot(rank2, ylab = "Count", names.arg = c("Female","Male"),
+main = "Faculty by Rank and Sex",
+col = c("skyblue","skyblue4","burlywood"),
+sub = "d. Grouped plot")
+legend("topleft", c("Prof","Assoc","Asst"),
+text.col = c("burlywood","skyblue4","skyblue"))
         
-        
-        
-        
-        
-        
-        
+spineplot(rank3, col = c("skyblue","skyblue4","burlywood"),main = "Faculty by Sex and Rank")
+
+# Fig. 9-3-c
+barplot(grp.sal$salary, ylab = "average salary",
+names.arg = rankname, col = sexcol,
+main = "Faculty Salaries", space = c(1, 0, 1, 0, 1, 0),
+sub = "c. Same rank together, space = c(1,0,1,0,1,0)")
+
+# Fig. 9-3-d
+barplot(grp.sal$salary, ylab = "average salary", col = sexcol,
+main = "Faculty Salaries", space = c(1, 0, 1, 0, 1, 0),
+horiz = T, sub = "d. Horizontal version of c. horiz=T",
+names.arg = rankname,
+cex.names = 0.8, las = 1)
+
+##饼图和扇形图
+allocation = c(30,25,28,10,7) # investment allocations
+# sector & sectcol will be reused/ don’t have to retype
+sector = c("Stock","For’n","Bonds","Gold","Cash")#short names fit page
+sectcol = c("burlywood","turquoise","firebrick","gold3","green4")
+
+pie(allocation, labels = sector, col = sectcol,main = "pie, choose colors")
+
+pie3D(allocation, labels = sector, col = sectcol, explode = .1,labelcex = .95, labelrad = 1.3, main = "pie3D")
+
+fan.plot(allocation, labels = sector, col = sectcol,ticks = 30, main = "Fan Plot")
+
+
+##地毯图
+library(multcomp)
+boxplot(mtcars$drat, main = "b. side = 2",col = "firebrick")
+rug(mtcars$drat, col = "darkmagenta", side = 2)
+hist(airquality$Ozone, main = "c. side = 1", col = "cyan4")
+rug(airquality$Ozone, col = "cyan4")
+boxplot(sbp$sbp,main = "d. side = 4", col = "darkorange3")
+rug(sbp$sbp, side = 4, col = "cornsilk4")
+
 
