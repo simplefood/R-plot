@@ -1,0 +1,10 @@
+data[cond,]
+data[which(cond),]
+subset(data,cond)
+
+pruned1 <- data[cond1, ]
+pruned2 <- pruned1[cond2, ]
+Do
+
+cond <- cond1 & cond2
+pruned2 <- data[cond,]
