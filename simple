@@ -229,3 +229,78 @@ boxplot(sbp$sbp,main = "d. side = 4", col = "darkorange3")
 rug(sbp$sbp, side = 4, col = "cornsilk4")
 
 
+##散点图和折线图
+plot(Height, Girth,
+     main = "d. add regression", pch = 20,
+     col = "deepskyblue")
+abline(lm(Girth ~ Height),
+       col = "dodgerblue4",
+       lty = 1,
+       lwd = 2 )
+       
+       
+attach(Nightingale)
+
+par(mar = c(6,6,5,5), cex = .8)
+
+Army = (Army)/20
+t = "British Army Deaths,Crimean War"
+x = "Date, by Month, from April, 1854 to March, 1856"
+y = "Number of Deaths per Month"
+mon = 1:24
+
+plot(mon, Disease,
+     type = "h",
+     lwd = 22, ##线宽
+     col = "gray67",
+     lend = "butt", ##直方图条圆角变成方角
+     main = t,
+     col.main = "maroon",
+     ylab = y,
+     xlab = x,
+     cex.lab = .8,
+     las =1,
+     cex.axis = .9,
+     bty = "l",
+     xaxt = "n") ## 去掉x轴标签，使用axis自定义坐标轴
+
+lines(mon, Wounds,
+      pch=18,
+      col="red",
+      lty = "solid",
+      lwd = 2)
+
+lines(mon, Other,
+      col="navyblue",
+      lty = "dotted",
+      lwd = 3)
+
+lines(mon, Army2,
+      lty = "dashed",
+      col = "seagreen4",
+      lwd = 2)
+
+##水平轴
+axis(1, at = c(2,6,10,14,18,22),
+     labels = c("Ma 54","Sep 54", "Jan 55", "May 55", "Sep 55", "Jan 56"))
+
+axis(4, at = c(0,500,1000,1500,2000,2500),
+     labels = c("0", "10k", "20k", "30k", "40k", "50k"),
+     las =1,
+     tick = T,
+     cex.lab = .6,
+     col = "seagreen4",
+     color.axis = "seagreen4",
+     ylab = "Troop Strength")
+
+legend("topleft", c("Death from disease","death from wounds", "other deaths","troop strength"),
+       text.col = c("gray40","red","navyblue","seagreen4"),
+bty = "n", cex = .8)
+
+detach(Nightingale)
+
+
+
+   
+
+
