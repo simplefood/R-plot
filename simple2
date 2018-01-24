@@ -1,0 +1,182 @@
+##字体
+?Hershey
+
+
+#模板图片
+###latticeExtra
+attach(trees)
+asTheEconomist(xyplot(Girth ~ Height),xlab = "height", type="p", with.bg = T)
+detach(trees)
+
+###epade
+attach(trees)
+scatter.ade(Height, Girth, wall=3, main="wall  = 3")
+detach(trees)
+
+###car
+attach(trees)
+sp(Height, Girth)
+detach(trees)
+
+attach(Vocab)
+sp(education, vocabulary, jitter = list(x =2, y = 2), smoother = F, spread = F, reg.line = F)
+detach(Vocab)
+
+###向日葵图
+attach(Vocab)
+sunflowerplot(education, vocabulary,
+              main = "sunflower plot",
+              col.main = "deepskyblue3",
+              family = "HersheySerif",
+              font.lab = 3)
+detach(Vocab)
+
+###平滑散点图
+attach(Vocab)
+smoothScatter(education, vocabulary,
+              las = 1,
+              family = "HersheyGothicGerman",
+              main = " smooth scatter plot", font = 3)
+detach(Vocab)
+
+###hexbin
+attach(Vocab)
+plot(hexbin(
+  education, vocabulary, xbins = 10), xlab = "Education", ylab = "vocabulary",colramp = BTC
+)
+detach(Vocab)
+
+
+##QQ图
+plot(density(tip), main = "a Density(tip)", col = "blue", lwd = 2)
+
+ran = rnorm(1000000)
+newtip = (tip - mean(tip))/sd(tip)
+plot(density(ran), main = "b.Density vs Norma",
+     xlim = c(-4,8),
+     ylim = c(0,.48))
+polygon(density(ran), col = "burlywood")
+lines(density(newtip), col= "blue", lwd =2)
+
+
+qtip2 = quantile(tip, seq(0,1,.005))
+qqplot(ran, qtip2,
+      main = "QQ",
+      xlim = c(-3,3),
+      col = "skyblue2")
+qqline(qtip2,col = "burlywood",lwd = 2)
+grid(lty="dotted",col="gray75")
+
+qtip2 = quantile(tip, seq(0,1,.005))
+qqnorm(tip,
+      main = "QQ",
+      col = "blue",
+      ylab = "tip quantiles")
+qqline(tip,col = "burlywood",lwd = 2)
+grid(lty="dotted",col="gray75")
+
+logtip = log10(tip)
+qqnorm(logtip,
+      main = "QQ",
+      col = "blue",
+      ylab = "tip quantiles")
+qqline(logtip,col = "burlywood",lwd = 2)
+
+qq(sex ~ tip, main="QQ")
+
+
+
+##散点矩阵
+pairs(~ Distinct + Attend + NonChurch + StrongPct + AnnInc,
+      pch = 16,
+      col = "deepskyblue")
+      
+ scatterplotMatrix(~ Distinct + Attend + NonChurch + StrongPct + AnnInc)
+ 
+ scatterplotMatrix(~ Distinct + Attend + NonChurch + StrongPct + AnnInc,
+                  diagonal="histogram", smoother = NULL)
+ 
+ 
+ y = cor(ex1713[, 2:6])
+par(mfrow=c(2,2))
+corrplot(y)
+corrplot(y, method="color")
+corrplot(y, method="number")
+corrplot(y, method="ellipse", type = "lower")
+
+ggscatmat(ex1713, columns= 2:6)
+ggpairs(ex1713[,2:4])
+gpairs(Nimrod[,2:4])
+
+
+#三维散点图
+scatterplot3d(Height, Girth, Volume,
+              pch = 15, type = "h",
+              lwd = 5,
+              color = "cyan4",
+              main = "3d",
+              box = F,
+              cex.axis = .5)
+              
+sp3 = scatterplot3d(Height, Girth, Volume,
+              highlight.3d = T,
+              pch = 16, type = "h",
+              main = "3d",
+              box = F,
+              cex.axis = .7)
+model = lm(Volume ~ Height + Girth)
+sp3$plane(model)              
+
+
+##伪色图
+levelplot(Percent ~ East*North)
+
+###气泡图
+PlotBubble(x = Height, y = Girth, area = Volume,
+           col = "steelblue", border = "burlywood",
+           inches = .25,
+           xlab = "Height", ylab = "Girth",
+           main = "tree volume", 
+           family = "HersheySerif", font.main = 4,
+           col.main = "maroon")
+
+PlotBubble(x = Educ, y = AFQT, area = Income2005/1000,
+           col = SetAlpha(as.numeric(Gender)), border = "burlywood",
+           inches = .25,
+           xlab = "Education", ylab = "AFQT test score")
+title(main = "income")
+legend("left", c("Female", "Male"), text.col = c(1:2), cex=.9,bty = "n")
+
+##协同图
+coplot(SATM ~ dollars | percent, pch = 16,
+       col = "royalblue",
+       bar.bg = c(num = "goldenrod2"))
+
+coplot(SATM ~ dollars | percent, pch = 16,
+       col = "royalblue",
+       bar.bg = c(num = "seagreen"),
+       overlap = 0,
+       number = 5)
+       
+       
+###树状图
+cars = as.matrix(mtcars)
+h = dist(scale(cars))
+h2 = hclust(h)
+plot(h2)
+
+
+## heat map 热图
+cars = as.matrix(mtcars)
+image(scale(cars), col = rainbow(256, start = .5, end = .6))
+heatmap(scale(cars))
+heatmap.2(scale(cars))
+
+
+
+       
+
+
+
+
+
